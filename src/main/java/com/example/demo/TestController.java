@@ -10,12 +10,12 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
-        return String.format("TEST DATE: %s", LocalDateTime.now());
+        return String.format("### TEST DATE: %s%n", LocalDateTime.now());
     }
     
     @GetMapping("/")
     public String root() {
-        return String.format("### (HELLO MAZA FAKA) ROOT DATE: %s%n", LocalDateTime.now());
+        return String.format("### ROOT DATE: %s%n", LocalDateTime.now());
     }
 
 }
