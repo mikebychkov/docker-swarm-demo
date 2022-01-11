@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+
+  core:
+    image: openjdk:14-jdk
+    volumes:
+      - .:/mvd_api/
+    environment:
+      - TZ=Asia/Tashkent
+      - SPRING_PROFILES_ACTIVE=local,test,emi-api,citizen-api
+    working_dir: /mvd_api
+    command: java -jar ./mvd-0.0.1-SNAPSHOT.jar
+    env_file: ../.env
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 2G
+
+  pa:
+    image: openjdk:14-jdk
+    ports:
+      - "9991:8080"
+    volumes:
+      - .:/mvd_api/
+    environment:
+      - TZ=Asia/Tashkent
+      - SPRING_PROFILES_ACTIVE=emi-api,publicapi,test
+    working_dir: /mvd_api
+    command: java -jar ./mvd-0.0.1-SNAPSHOT.jar
+    env_file: ../.paenv
+    ports:
+      - 9991:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 2G
+
