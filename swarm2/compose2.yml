@@ -18,6 +18,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
     deploy:
       replicas: 2
+      update_config:
+        order: start-first
       resources:
         limits:
           memory: 2G
@@ -40,6 +42,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
     deploy:
       replicas: 2
+      update_config:
+        order: start-first
       resources:
         limits:
           memory: 2G
