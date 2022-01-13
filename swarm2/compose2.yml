@@ -16,10 +16,11 @@ services:
       - 8080:8080
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
+      start_period: 60s
     deploy:
       replicas: 2
-        #      update_config:
-        #        order: start-first # THIS OPTION IS MESSED UP, NOT RECOMEND
+      update_config:
+        order: start-first 
       resources:
         limits:
           memory: 2G
@@ -40,10 +41,11 @@ services:
       - 9991:8080
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/tools/health"]
+      start_period: 60s
     deploy:
       replicas: 2
-        #      update_config:
-        #        order: start-first # THIS OPTION IS MESSED UP, NOT RECOMEND
+      update_config:
+        order: start-first 
       resources:
         limits:
           memory: 2G
